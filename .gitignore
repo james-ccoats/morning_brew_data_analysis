@@ -1,15 +1,17 @@
-# Python-generated files
+# Python
 __pycache__/
 *.py[oc]
 build/
 dist/
 wheels/
 *.egg-info
-.Rhistory
-.DS_Store
+.venv
 .python-version
 
+# R / RStudio
+.Rhistory
+.RData
+.Rproj.user/
 
-
-# Virtual environments
-.venv
+# OS
+.DS_Store
