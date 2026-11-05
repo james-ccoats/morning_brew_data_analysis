@@ -1,12 +1,10 @@
 import yfinance as yf
 import polars as pl
 import fastexcel
-import os
+from paths import RAW_PICKS_XLSX, PICKS_CSV, MARKET_CSV
 from datetime import timedelta
 
-load_path = os.path.expanduser('/Users/jamesccoats/Dev/MorningBrewViz/data/raw/mbdata.xlsx')
-save_path = os.path.expanduser('/Users/jamesccoats/Dev/MorningBrewViz/data/cleaned/mbdata.csv')
-mb_data = pl.read_excel(load_path)
+mb_data = pl.read_excel(RAW_PICKS_XLSX)
 
 mb_data = mb_data.filter(pl.col('sotw_ticker').is_not_null() & pl.col('date').is_not_null())
 mb_data = mb_data.with_row_index("pick_id").with_columns(
@@ -70,4 +68,5 @@ wide = joined.pivot(
 
 result_df = mb_data.join(wide, on="pick_id", how="left")
 
-result_df.write_csv(save_path)
+result_df.write_csv(PICKS_CSV)
+polars_market.write_csv(MARKET_CSV)
